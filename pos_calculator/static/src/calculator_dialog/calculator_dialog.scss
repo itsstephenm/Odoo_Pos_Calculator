@@ -1,0 +1,22 @@
+.pos-calculator-container {
+    width: 350px;
+    max-width: 100%;
+
+    .calculator-display {
+        word-break: break-all;
+        min-height: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .calculator-keypad {
+        grid-template-columns: repeat(5, 1fr);
+        
+        button {
+            font-size: 1.25rem;
+            padding: 0.75rem;
+            touch-action: manipulation; /* Touch-friendly for POS screens */
+        }
+    }
+}

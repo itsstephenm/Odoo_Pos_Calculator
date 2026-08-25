@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_calculator.CalculatorDialog" owl="1">
+        <Dialog title="'Calculator'" close="props.close" footer="false">
+            <div class="pos-calculator-container">
+                <div class="calculator-display mb-3 text-end fs-1 fw-bold bg-light p-3 rounded border">
+                    <t t-esc="state.display"/>
+                </div>
+                <div class="calculator-keypad d-grid gap-2">
+                    <!-- Row 1: Scientific & Clear -->
+                    <button class="btn btn-secondary btn-lg" t-on-click="() => this.applyScientific('sqrt')">√x</button>
+                    <button class="btn btn-secondary btn-lg" t-on-click="() => this.applyScientific('square')">x²</button>
+                    <button class="btn btn-secondary btn-lg" t-on-click="() => this.performOperation('y^x')">x^y</button>
+                    <button class="btn btn-danger btn-lg" t-on-click="clearAll">C</button>
+                    <button class="btn btn-warning btn-lg" t-on-click="clearEntry">CE</button>
+
+                    <!-- Row 2 -->
+                    <button class="btn btn-light btn-lg" t-on-click="() => this.inputDigit(7)">7</button>
+                    <button class="btn btn-light btn-lg" t-on-click="() => this.inputDigit(8)">8</button>
+                    <button class="btn btn-light btn-lg" t-on-click="() => this.inputDigit(9)">9</button>
+                    <button class="btn btn-info btn-lg" t-on-click="() => this.performOperation('÷')">÷</button>
+                    <button class="btn btn-info btn-lg" t-on-click="() => this.applyScientific('percent')">%</button>
+
+                    <!-- Row 3 -->
+                    <button class="btn btn-light btn-lg" t-on-click="() => this.inputDigit(4)">4</button>
+                    <button class="btn btn-light btn-lg" t-on-click="() => this.inputDigit(5)">5</button>
+                    <button class="btn btn-light btn-lg" t-on-click="() => this.inputDigit(6)">6</button>
+                    <button class="btn btn-info btn-lg" t-on-click="() => this.performOperation('×')">×</button>
+                    <button class="btn btn-secondary btn-lg" t-on-click="backspace">⌫</button>
+
+                    <!-- Row 4 -->
+                    <button class="btn btn-light btn-lg" t-on-click="() => this.inputDigit(1)">1</button>
+                    <button class="btn btn-light btn-lg" t-on-click="() => this.inputDigit(2)">2</button>
+                    <button class="btn btn-light btn-lg" t-on-click="() => this.inputDigit(3)">3</button>
+                    <button class="btn btn-info btn-lg" t-on-click="() => this.performOperation('-')">-</button>
+                    <button class="btn btn-primary btn-lg" style="grid-row: span 2;" t-on-click="equals">=</button>
+
+                    <!-- Row 5 -->
+                    <button class="btn btn-light btn-lg" style="grid-column: span 2;" t-on-click="() => this.inputDigit(0)">0</button>
+                    <button class="btn btn-light btn-lg" t-on-click="inputDecimal">.</button>
+                    <button class="btn btn-info btn-lg" t-on-click="() => this.performOperation('+')">+</button>
+                </div>
+            </div>
+        </Dialog>
+    </t>
+</templates>
