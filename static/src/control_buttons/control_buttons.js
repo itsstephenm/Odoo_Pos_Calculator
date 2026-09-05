@@ -2,28 +2,25 @@
 
 import { patch } from "@web/core/utils/patch";
 import { ControlButtons } from "@point_of_sale/app/screens/product_screen/control_buttons/control_buttons";
-import { ProductScreen } from "@point_of_sale/app/screens/product_screen/product_screen";
 import { CalculatorDialog } from "@pos_calculator/calculator_dialog/calculator_dialog";
+import { OrderSummary } from "@pos_hr/app/screens/product_screen/order_summary/order_summary";
 
-// Inject the Calculator button into control buttons
 patch(ControlButtons.prototype, {
     onClickCalculator() {
         this.dialog.add(CalculatorDialog, {});
     }
 });
 
-// Guard ProductScreen numpad rendering against undefined cashier/role states
-patch(ProductScreen.prototype, {
-    getNumpadButtons() {
+// Guard pos_hr OrderSummary against unassigned cashier roles (fixes the missing delete button and layout crash)
+patch(OrderSummary.prototype, {
+    updateSelectedOrderline() {
+        if (!this.pos?.cashier) {
+            return;
+        }
         try {
-            return super.getNumpadButtons(...arguments);
+            return super.updateSelectedOrderline(...arguments);
         } catch (e) {
-            return [
-                { value: "1" }, { value: "2" }, { value: "3" },
-                { value: "4" }, { value: "5" }, { value: "6" },
-                { value: "7" }, { value: "8" }, { value: "9" },
-                { value: "0" }, { value: "." }, { value: "-" }
-            ];
+            return;
         }
     }
 });
