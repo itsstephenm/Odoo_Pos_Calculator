@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <!-- Inject Calculator Button -->
-    <t t-name="Odoo_Pos_Calculator.ControlButtons" t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+    
+    <!-- Inject Calculator Button into ControlButtons -->
+    <t t-name="pos_calculator.ControlButtons" t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
         <xpath expr="//button[i[hasclass('fa-upload')]]" position="before">
             <button t-if="!props.showRemainingButtons and !this.pos?.isSmallProductScreen" 
                     t-attf-class="{{ buttonClass }}" 
@@ -10,12 +11,18 @@
                 <i class="fa fa-calculator" role="img" aria-label="Calculator"/>
             </button>
         </xpath>
-    </t>
-
-    <!-- Fix Odoo 19 crash: Patch OpeningControlPopup to safely check cashier role -->
-    <t t-name="Odoo_Pos_Calculator.OpeningControlPopup" t-inherit="point_of_sale.OpeningControlPopup" t-inherit-mode="extension">
+        
+        <!-- Fix Odoo 19 crash: Patch ControlButtons to safely check cashier role -->
         <xpath expr="//button[contains(@t-if, 'this.pos.cashier._role')]" position="attributes">
             <attribute name="t-if">!(this.pos?.cashier?._role === 'minimal')</attribute>
         </xpath>
     </t>
+
+    <!-- Fix Odoo 19 crash: Patch OpeningControlPopup to safely check cashier role -->
+    <t t-name="pos_calculator.OpeningControlPopup" t-inherit="point_of_sale.OpeningControlPopup" t-inherit-mode="extension">
+        <xpath expr="//button[contains(@t-if, 'this.pos.cashier._role')]" position="attributes">
+            <attribute name="t-if">!(this.pos?.cashier?._role === 'minimal')</attribute>
+        </xpath>
+    </t>
+    
 </templates>
