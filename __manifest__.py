@@ -6,8 +6,8 @@
     'depends': ['point_of_sale'],
     'assets': {
         'point_of_sale._assets_pos': [
-            'Odoo_Pos_Calculator/static/src/calculator_dialog/**/*',
-            'Odoo_Pos_Calculator/static/src/control_buttons/**/*',
+            'pos_calculator/static/src/calculator_dialog/**/*',
+            'pos_calculator/static/src/control_buttons/**/*',
         ],
     },
     'installable': True,
