@@ -28,12 +28,13 @@ patch(DebugWidget.prototype, {
 patch(LoginScreen.prototype, {
     clickBack() {
         try {
-            if (this.pos && typeof this.pos.showScreen === 'function') {
-                this.pos.showScreen('ProductScreen');
+            if (!this.pos || !this.pos.get_cashier || !this.pos.get_cashier()) {
+                window.location = '/web#action=point_of_sale.action_client_pos_menu';
                 return;
             }
+            return super.clickBack(...arguments);
         } catch (e) {
-            console.warn("Fallback navigation triggered:", e);
+            window.location = '/web#action=point_of_sale.action_client_pos_menu';
         }
     }
 });
