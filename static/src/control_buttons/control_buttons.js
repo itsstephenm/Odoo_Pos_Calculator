@@ -26,14 +26,15 @@ patch(DebugWidget.prototype, {
 });
 
 patch(LoginScreen.prototype, {
-    clickBack() {
+    async clickBack() {
         if (!this.pos || !this.pos.get_cashier()) {
+            this.pos.showScreen('ProductScreen');
             return;
         }
         try {
-            return super.clickBack(...arguments);
+            return await super.clickBack(...arguments);
         } catch (e) {
-            console.warn("Handled LoginScreen clickBack state transition safely.");
+            this.pos.showScreen('ProductScreen');
         }
     }
 });
