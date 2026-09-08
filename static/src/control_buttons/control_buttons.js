@@ -27,13 +27,14 @@ patch(DebugWidget.prototype, {
 
 patch(LoginScreen.prototype, {
     async clickBack() {
-        if (!this.pos || !this.pos.get_cashier()) {
-            this.pos.showScreen('ProductScreen');
-            return;
-        }
         try {
+            if (!this.pos || !this.pos.get_cashier()) {
+                this.pos.showScreen('ProductScreen');
+                return;
+            }
             return await super.clickBack(...arguments);
         } catch (e) {
+            console.warn("Intercepted LoginScreen clickBack crash:", e);
             this.pos.showScreen('ProductScreen');
         }
     }
