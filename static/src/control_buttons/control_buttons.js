@@ -3,6 +3,7 @@
 import { patch } from "@web/core/utils/patch";
 import { ControlButtons } from "@point_of_sale/app/screens/product_screen/control_buttons/control_buttons";
 import { DebugWidget } from "@point_of_sale/app/utils/debug/debug_widget";
+import { LoginScreen } from "@point_of_sale/app/screens/login_screen/login_screen";
 import { CalculatorDialog } from "@pos_calculator/calculator_dialog/calculator_dialog";
 
 patch(ControlButtons.prototype, {
@@ -20,6 +21,19 @@ patch(DebugWidget.prototype, {
             return super.isDisabled;
         } catch (e) {
             return true;
+        }
+    }
+});
+
+patch(LoginScreen.prototype, {
+    clickBack() {
+        if (!this.pos || !this.pos.get_cashier()) {
+            return;
+        }
+        try {
+            return super.clickBack(...arguments);
+        } catch (e) {
+            console.warn("Handled LoginScreen clickBack state transition safely.");
         }
     }
 });
